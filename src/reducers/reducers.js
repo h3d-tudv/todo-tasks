@@ -10,7 +10,7 @@ import {
 
 const initialState = {
     visibilityFilter: VisibilityFilters.SHOW_ALL,
-    todoTasks: []
+    todoTasks:  [{"name":"Simon Mignolet","completed":true},{"name":"Nathaniel Clyne","completed":false}],
 }
 
 function todoTasks(state=[], action) {

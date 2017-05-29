@@ -16,21 +16,21 @@ import TodoItem from './TodoItem'
 import {connect} from 'react-redux'
 
 import {
-    toggleTask
+    toggleTask, addTodo,
 } from '../actions/actionCreator'
 
 
 class TodoList extends Component{
     render(){
         var items = [{"name":"Simon Mignolet","completed":true},{"name":"Nathaniel Clyne","completed":false}];
-        var {toggle,remove} = this.props;
+        var {toggle,remove,add} = this.props;
         return (
             <List dataArray={items}
                   renderRow={(item) =>
 
                       <ListItem icon>
                           <Left>
-                              <CheckBox onPress={()=>this.onPress()} checked={item.completed} />
+                              <CheckBox onPress={toggle} checked={item.completed} />
                           </Left>
                           <Body>
                           <Text>
@@ -46,14 +46,10 @@ class TodoList extends Component{
             </List>
         );
     }
-
-    onPress() {
-        let a = 1;
-    }
 }
 const mapStateToProps = (state) => {
     return {
-        text: "sdsdsd",
+        items: state.todoTasks,
     }
 }
 
@@ -61,12 +57,14 @@ const mapDispatchToProps = (dispatch) => {
     return {
         toggle: () => {
             dispatch(toggleTask())
-        },
+        }
     }
+
 }
 
 const TodoListView = connect(
     mapStateToProps,
+
     mapDispatchToProps
 )(TodoList)
 
