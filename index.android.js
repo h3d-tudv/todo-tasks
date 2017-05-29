@@ -8,6 +8,6 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
 } from 'react-native';
-import App from './src/App'
+import AppContainer from './src/AppContainer'
 
-AppRegistry.registerComponent('TodoTasks', () => App);
+AppRegistry.registerComponent('TodoTasks', () => AppContainer);
