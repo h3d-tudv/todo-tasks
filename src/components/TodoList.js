@@ -22,19 +22,18 @@ import {
 
 class TodoList extends Component{
     render(){
-        var items = [{"name":"Simon Mignolet","completed":true},{"name":"Nathaniel Clyne","completed":false}];
-        var {toggle,remove,add} = this.props;
+        var {items,toggle,remove,add} = this.props;
         return (
             <List dataArray={items}
-                  renderRow={(item) =>
+                  renderRow={(rowData, sectionId, rowId) =>
 
                       <ListItem icon>
                           <Left>
-                              <CheckBox onPress={toggle} checked={item.completed} />
+                              <CheckBox onPress={()=>toggle(rowId)} checked={rowData.completed} />
                           </Left>
                           <Body>
                           <Text>
-                              {item.name}
+                              {rowData.name}
                           </Text>
                           </Body>
                           <Right>
@@ -55,11 +54,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        toggle: () => {
-            dispatch(toggleTask())
+        toggle: (rowId) => {
+            dispatch(toggleTask(parseInt(rowId)))
         }
     }
-
 }
 
 const TodoListView = connect(

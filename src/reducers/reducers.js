@@ -10,21 +10,25 @@ import {
 
 const initialState = {
     visibilityFilter: VisibilityFilters.SHOW_ALL,
-    todoTasks:  [{"name":"Simon Mignolet","completed":true},{"name":"Nathaniel Clyne","completed":false}],
+    todoTasks:  [{"id":1,"name":"Task1","completed":true},{"id":2,"name":"Nathaniel Clyne","completed":false}],
 }
 
 function todoTasks(state=[], action) {
     switch (action.type) {
         case ADD_TASK:
-            return [...state, {text: action.text, completed:false}]
+            return [...state, {text: action.text, completed: false}]
 
         case TOGGLE:
             return state.map((todo, index) => {
                 if (index === action.index) {
                     return {...todo, completed: !todo.completed}
-                }})
-            return todo;
-        }
+                }
+                return todo;
+            })
+
+        default:
+            return state
+    }
 }
 
 function visibilityFilter(state=VisibilityFilters.SHOW_ALL, action) {
@@ -39,7 +43,7 @@ function visibilityFilter(state=VisibilityFilters.SHOW_ALL, action) {
 export default function mainReducer(state = initialState, action) {
     return {
         visibilityFilter: visibilityFilter(state.visibilityFilter, action),
-        todoTasks: todoTasks(state.todos, action)
+        todoTasks: todoTasks(state.todoTasks, action)
     }
 }
 
