@@ -19,9 +19,17 @@ import {
     toggleTask, addTodo,
 } from '../actions/actionCreator'
 
+import {
+    Actions
+} from 'react-native-router-flux'
+
 
 class TodoList extends Component{
     render(){
+        const onTaskPress = (rowData)=> {
+            Actions.detailView(rowData)
+        }
+
         var {items,toggle,remove,add} = this.props;
         return (
             <List dataArray={items}
@@ -32,7 +40,7 @@ class TodoList extends Component{
                               <CheckBox onPress={()=>toggle(rowId)} checked={rowData.completed} />
                           </Left>
                           <Body>
-                          <Text>
+                          <Text onPress={()=>onTaskPress(rowData)}>
                               {rowData.name}
                           </Text>
                           </Body>
@@ -62,7 +70,6 @@ const mapDispatchToProps = (dispatch) => {
 
 const TodoListView = connect(
     mapStateToProps,
-
     mapDispatchToProps
 )(TodoList)
 

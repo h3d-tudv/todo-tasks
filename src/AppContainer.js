@@ -8,10 +8,16 @@ import {
     Text,
     TouchableHighlight,
 } from 'react-native'
-
+import {
+    StackNavigator
+} from 'react-navigation'
 import {
     Provider
 } from 'react-redux'
+
+import {
+    Scene, NavBar, Router
+} from 'react-native-router-flux'
 
 import {createStore} from 'redux'
 import mainReducer from './reducers/reducers'
@@ -21,6 +27,7 @@ import {
 } from 'native-base'
 
 import TodoListView from './components/TodoList'
+import DetailView from './components/view/DetailView'
 
 class ControlPanel extends Component {
     render() {
@@ -34,11 +41,11 @@ class ControlPanel extends Component {
 
 let store = createStore(mainReducer)
 
-export default class AppContainer extends Component {
+class MainScreen extends Component {
     render() {
         return (
             <Provider store={store}>
-                <Drawer
+                <Drawer  style={{marginTop:128}}
                     ref={(ref) => {
                         this.drawer = ref
                     }}
@@ -76,4 +83,17 @@ export default class AppContainer extends Component {
     openDrawer() {
         this.drawer._root.open()
     };
+}
+
+export default class AppContainer extends Component {
+    render() {
+        return (
+            <Router>
+                <Scene key="root">
+                    <Scene key="mainView" component={MainScreen} initial="true" hideNavBar="false"/>
+                    <Scene key="detailView" title="sdsd" component={DetailView} hideNavBar="true"/>
+                </Scene>
+            </Router>
+        );
+    }
 }
