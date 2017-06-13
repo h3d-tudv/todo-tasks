@@ -16,7 +16,7 @@ import TodoItem from './TodoItem'
 import {connect} from 'react-redux'
 
 import {
-    toggleTask, addTodo,
+    toggleTask, addTask, deleteTask
 } from '../actions/actionCreator'
 
 import {
@@ -45,7 +45,7 @@ class TodoList extends Component{
                           </Text>
                           </Body>
                           <Right>
-                              <Icon name="md-trash" style={{ color: '#000000' }} onPress={remove} />
+                              <Icon name="md-trash" style={{ color: '#000000' }} onPress={()=>remove(rowId)} />
                           </Right>
                       </ListItem>
 
@@ -64,6 +64,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         toggle: (rowId) => {
             dispatch(toggleTask(parseInt(rowId)))
+        },
+        remove: (rowId) => {
+            dispatch(deleteTask(parseInt(rowId)))
         }
     }
 }
